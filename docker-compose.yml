@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  web:
+    image: ${DOCKER_REGISTRY-ghcr.io/vvlasy/}self-hosted-app-template-csharp${DOCKER_REGISTRY_SUFFIX-:main}
+    expose:
+        - "8080"
+    build:
+      context: .
+      dockerfile: csharp-blazor/Dockerfile
+    networks:
+        - default
+    environment:
+        - ASPNETCORE_URLS=http://+:8080
+
+networks:
+  default:
+    name: ${NETWORK-none}
+    external: true
